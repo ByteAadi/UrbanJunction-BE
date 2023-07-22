@@ -104,7 +104,7 @@ Routes.get("/men/show", async (req, res) => {
             query.title = { $regex: req.query.title, $options: "i" };
         }
         if (req.query.brand) {
-            query.Brand = { $regex: req.query.brand, $options: "i" };
+            query.brand = { $regex: req.query.brand, $options: "i" };
         }
         if (req.query.color) {
             query.color = { $regex: req.query.color, $options: "i" };
