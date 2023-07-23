@@ -5,11 +5,11 @@ const OrderModel = require("../model/orders");
 
 Router.post("/new",authorization,async(req,res)=>{
     try {
-        const {quantity,totalprice,products,address,Arriving,email,status}=req.body
-        if(!quantity||!totalprice||!products||!address||!Arriving){
+        const {quantity,totalprice,products,Arriving,email,status}=req.body
+        if(!quantity||!totalprice||!products||!Arriving){
             return req.status(400).json({msg:"please provide all the order details"})
         }
-        const DatatoDb= new OrderModel({quantity,totalprice,products,address,Arriving,email,status})
+        const DatatoDb= new OrderModel({quantity,totalprice,products,Arriving,email,status})
             await DatatoDb.save()
             return res.status(200).json({msg:"order completed"})
     } catch (error) {
