@@ -3,11 +3,12 @@ const sgMail = require('@sendgrid/mail');
 const validate=require("../middleware/postmiddleware")
 const Payment = express.Router()
 const cartmodel=require("../model/cart")
+const payment=require("../model/orders")
 sgMail.setApiKey("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");
 
 Payment.post('/payment',validate, async (req, res) => {
     try {
-        const { amount, cardNumber, cvv, expiry, email} = req.body;
+        const { amount, cardNumber, cvv, expiry, email,id} = req.body;
 
         if (!amount || !cardNumber || !cvv || !expiry ) {
             return res.status(400).json({ error: 'Missing payment information' });
@@ -32,7 +33,7 @@ Payment.post('/payment',validate, async (req, res) => {
     // const send=await sendNotificationEmail(email, amount)
      
         await cartmodel.deleteMany({email});
-
+        await payment.findOneAndUpdate({_id:id,status:"orderd"})   
        return res.json({ message: 'Payment successful' });
       
        
