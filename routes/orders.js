@@ -44,7 +44,7 @@ Router.get("/one/:id",authorization,async(req,res)=>{
     }
 
 })
-Router.delete("/cancel/:id",authorization,async(req,res)=>{
+Router.put("/update/:id",authorization,async(req,res)=>{
     try {
        const{id}=req.params
        const status=req.body.status
