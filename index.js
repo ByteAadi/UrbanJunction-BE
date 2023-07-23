@@ -8,12 +8,14 @@ const  Routes  = require("./routes/data")
 const cart=require("./routes/cart")
 const payment=require("./routes/payment");
 const Router = require("./routes/orders");
+const addressrouter=require("./routes/address")
 app.use(cors())
 app.use("/cart",cart)
 app.use("/",Routes)
 app.use("/auth",Authrozation)
 app.use("/aadiswipe",payment)
 app.use("/order",Router)
+app.use("/address",addressrouter)
 app.listen(3000, () => {
     try {
         connection()
