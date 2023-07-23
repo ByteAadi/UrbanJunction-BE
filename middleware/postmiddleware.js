@@ -5,10 +5,10 @@ const Validate=(req,res,next)=>{
     try {
         const token=req.headers.token
         
-        console.log(req.headers);
+       // console.log(req.headers);
         if(token){
             const decoded=jwt.verify(token,"masai")
-            console.log(decoded);
+            //console.log(decoded);
             req.body.email=decoded.email
             req.body.token=""
                 next()
