@@ -6,12 +6,14 @@ const Authrozation=require("./routes/login")
 const {connection}  = require("./conncetion")
 const  Routes  = require("./routes/data")
 const cart=require("./routes/cart")
-const payment=require("./routes/payment")
+const payment=require("./routes/payment");
+const Router = require("./routes/orders");
 app.use(cors())
 app.use("/cart",cart)
 app.use("/",Routes)
 app.use("/auth",Authrozation)
 app.use("/aadiswipe",payment)
+app.use("/order",Router)
 app.listen(3000, () => {
     try {
         connection()
@@ -19,4 +21,4 @@ app.listen(3000, () => {
         console.log(error);
     }
 });
-//http://localhost:3000/getkids?page=1&title=value&color=value&Brand=value&minPrice=value&maxPrice=value&sbp=asc/desc
+
