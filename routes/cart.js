@@ -3,8 +3,8 @@ const CartModel = require("../model/cart")
 const CartRoute = express.Router()
 const validate = require("../middleware/postmiddleware")
 const cartmodel = require("../model/cart")
-
-CartRoute.post("/add", validate, async (req, res) => {
+const roles=require("../middleware/Rolecheck")
+CartRoute.post("/add", validate,roles(["user","Admin","superadmin"]), async (req, res) => {
     
     try {
        
@@ -30,7 +30,7 @@ CartRoute.post("/add", validate, async (req, res) => {
     }
 
 })
-CartRoute.post("/show",validate, async (req, res) => {
+CartRoute.get("/show",validate,roles(["user","Admin","superadmin"]), async (req, res) => {
     try {
         const { email } = req.body
 
@@ -49,7 +49,7 @@ CartRoute.post("/show",validate, async (req, res) => {
     }
 
 })
-CartRoute.delete("/Remove/:id",validate, async (req, res) => {
+CartRoute.delete("/Remove/:id",validate,roles(["user","Admin","superadmin"]), async (req, res) => {
     try {
         const { id } = req.params
         const {email}=req.body
@@ -66,7 +66,7 @@ CartRoute.delete("/Remove/:id",validate, async (req, res) => {
     }
 
 })
-CartRoute.patch("/quantity/:id",validate, async (req, res) => {
+CartRoute.patch("/quantity/:id",validate,roles(["user","Admin","superadmin"]), async (req, res) => {
     try {
         const { id } = req.params
         const {email,q}=req.body

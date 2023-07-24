@@ -6,7 +6,7 @@ const reg_model = require("../model/reg")
 const jwt = require("jsonwebtoken")
 const validate=require("../middleware/postmiddleware")
 Authorization.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, email, password ,role} = req.body
   console.log(req.body);
   try {
     const userr=await reg_model.findOne({email})
@@ -15,7 +15,7 @@ Authorization.post("/signup", async (req, res) => {
       return res.status(200).json({msg:"user already exist"})
     }
     bcrypt.hash(password, 8, async (err, hash) => {
-      const datatodb = new reg_model({ name, email, password: hash })
+      const datatodb = new reg_model({ name, email, password: hash,role })
       await datatodb.save()
       res.json({msg:"regestration success"})
       console.log(err);
@@ -44,7 +44,7 @@ Authorization.post("/login", async (req, res) => {
          return res.status(400).json({ "msg": "Wrong Credentials" })
         
         }
-        return  res.status(200).json({ "msg": "Login successfull!", "token": jwt.sign({ "email": user.email }, "masai"),name:user.name,email:user.email})
+        return  res.status(200).json({ "msg": "Login successfull!", "token": jwt.sign({ email: user.email,role:user.role}, "masai"),name:user.name,email:user.email})
       });
     
     
