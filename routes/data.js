@@ -161,7 +161,7 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
     Routes.put("/block/user",authentication,Authorization([ "Admin","superadmin" ]),async(req,res)=>{
         try {
             const {useremail,isblock}=req.body
-            if(typeof(isblock)!==Boolean){
+            if(typeof(isblock)!=="boolean"){
                 return  res.status(400).json({msg:"new block status must be provided in boolean"})
             }
             const{role}=req
