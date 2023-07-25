@@ -11,7 +11,7 @@ Routes.post("/Products/add",authentication,Authorization(["seller","Admin","supe
         if (Data) {
             replacedoolor(Data)
             await ProductsModel.insertMany(Data);
-             return res.status(200).json({ "msg": ` data added` });
+             return res.status(200).json({ "msg": `data added` });
         }else{
             return res.status(400).json({ "msg": "please provide the data" });
         }
@@ -135,6 +135,39 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
         res.status(500).json({ "msg": "Something went wrong, please try again later." });
     }
 })
+Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),async (req, res) => {
+    try {
+        let query = {};
+        if (req.query.email) {
+            query.email = { $regex: req.query.email, $options: "i" };
+        }
+        if (req.query.name) {
+            query.name = { $regex: req.query.name, $options: "i" };
+        }
+        const notes = await UsersModel.find(query).select('-password');
+
+        if(!notes.length){
+            return  res.status(200).json({msg:"sorry this email is not linked to any userID"})
+        }
+        res.status(200).json(notes)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ "msg": "Something went wrong, please try again later." });
+    }
+    })
+    // Routes.get("/users/block",authentication, Authorization(["superadmin"]),async (req, res) => {
+    //     try {
+            
+    //         const notes = await UsersModel.find(query);
+    //         if(!notes.length){
+    //             return  res.status(200).json({msg:"sorry this email is not linked to any userID"})
+    //         }
+    //         res.status(200).json(notes)
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).json({ "msg": "Something went wrong, please try again later." });
+    //     }
+    //     }) 
 function replacedoolor(data) {
     if (data) {
 
