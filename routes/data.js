@@ -173,6 +173,7 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
             await DatafromUsers.save()
             return res.status(200).json({msg:"Block status changed"});
         } catch (error) {
+            console.log(error)
             res.status(500).json({ "msg": "Something went wrong, please try again later." });
         }
     })
