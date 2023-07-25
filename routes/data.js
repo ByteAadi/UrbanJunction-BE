@@ -165,7 +165,7 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
                 return  res.status(400).json({msg:"new block status must be provided in boolean"})
             }
             const{role}=req
-            const DatafromUsers=await UsersModel.findOne(useremail)
+            const DatafromUsers=await UsersModel.findOne({email:useremail})
             if(role==="Admin" && DatafromUsers.role==="superadmin"){
                 return res.status(400).json({msg:"Admin cannot change the block status of superadmin"})
             }
