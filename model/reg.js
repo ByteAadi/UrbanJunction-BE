@@ -4,7 +4,8 @@ const reg_schema = mongoose.Schema({
     name: { type: String,required:true},
     email: { type: String,required:true},
     password: { type: String,required:true},
-     role:{type: String, required: true,default:"user",enum:["seller","user","Admin","superadmin"]}
+     role:{type: String, required: true,default:"user",enum:["seller","user","Admin","superadmin"]},
+     Blocked:{ type: Boolean,default:true}
 
 })
 const reg_model = mongoose.model("users", reg_schema)
