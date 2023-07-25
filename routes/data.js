@@ -127,7 +127,9 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
         if(!authority=="superadmin"||!authority=="Admin"){
             res.status(400).json({ "msg": "Please provide valid neq authority" })
         }
-        const DatafromUsers=await UsersModel.findOneAndUpdate({email,role:authority})
+        const email={email:email}
+        const role={role:authority}
+        const DatafromUsers=await UsersModel.findOneAndUpdate(email,role)
         return res.status(200).json({msg:`Role of ${DatafromUsers.name} changed to ${authority} from ${DatafromUsers.role}`});
     } catch (error) {
         res.status(500).json({ "msg": "Something went wrong, please try again later." });
