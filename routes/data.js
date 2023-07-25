@@ -170,6 +170,7 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
                 return res.status(400).json({msg:"Admin cannot change the block status of superadmin"})
             }
             DatafromUsers.block=isblock
+            console.log( DatafromUsers)
             await DatafromUsers.save()
             return res.status(200).json({msg:"Block status changed"});
         } catch (error) {
