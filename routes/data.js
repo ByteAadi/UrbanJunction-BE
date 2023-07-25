@@ -158,19 +158,24 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
         res.status(500).json({ "msg": "Something went wrong, please try again later." });
     }
     })
-    // Routes.get("/users/block",authentication, Authorization(["superadmin"]),async (req, res) => {
-    //     try {
-            
-    //         const notes = await UsersModel.find(query);
-    //         if(!notes.length){
-    //             return  res.status(200).json({msg:"sorry this email is not linked to any userID"})
-    //         }
-    //         res.status(200).json(notes)
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).json({ "msg": "Something went wrong, please try again later." });
-    //     }
-    //     }) 
+    Routes.put("/block/user",authentication,Authorization([ "Admin","superadmin" ]),async(req,res)=>{
+        try {
+            const {email,isblock}=req.body
+            if(typeof(isblock)!==Boolean){
+                return  res.status(400).json({msg:"new block status must be provided in boolean"})
+            }
+            const{role}=req
+            const DatafromUsers=await UsersModel.findOne(email)
+            if(role==="Admin" && DatafromUsers.role==="superadmin"){
+                return res.status(400).json({msg:"Admin cannot change the block status of superadmin"})
+            }
+            DatafromUsers.block=isblock
+            await DatafromUsers.save()
+            return res.status(200).json({msg:"Block status changed"});
+        } catch (error) {
+            res.status(500).json({ "msg": "Something went wrong, please try again later." });
+        }
+    })
 function replacedoolor(data) {
     if (data) {
 
