@@ -123,13 +123,13 @@ try {
 })
 Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(req,res)=>{
     try {
-        const {email,authority}=req.body
+        const {emailtochange,authority}=req.body
         // if(!authority=="superadmin"||!authority=="Admin"){
         //     res.status(400).json({ "msg": "Please provide valid neq authority" })
         // }
        // const emaill={email:email}
         // const role={role:authority}
-        const DatafromUsers=await UsersModel.findOne({email:email})
+        const DatafromUsers=await UsersModel.findOne({email:emailtochange})
         DatafromUsers.role=authority
         await DatafromUsers.save()
        // const DatafromUsers=await UsersModel.updateOne(emaill,role)
