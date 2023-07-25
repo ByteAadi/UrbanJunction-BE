@@ -129,7 +129,7 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
         // }
         const emaill={email:email}
         const role={role:authority}
-        const DatafromUsers=await UsersModel.findOneAndUpdate(emaill,role)
+        const DatafromUsers=await UsersModel.updateOne(emaill,role)
         return res.status(200).json({msg:`Role of ${DatafromUsers.name} changed to ${authority} from ${DatafromUsers.role}`});
     } catch (error) {
         res.status(500).json({ "msg": "Something went wrong, please try again later." });
