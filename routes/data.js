@@ -144,6 +144,9 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
         if (req.query.name) {
             query.name = { $regex: req.query.name, $options: "i" };
         }
+        if (req.query.role) {
+            query.role = { $regex: req.query.role, $options: "i" };
+        }
         const notes = await UsersModel.find(query).select('-password');
 
         if(!notes.length){
