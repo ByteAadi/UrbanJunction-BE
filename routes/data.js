@@ -160,12 +160,12 @@ Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),a
     })
     Routes.put("/block/user",authentication,Authorization([ "Admin","superadmin" ]),async(req,res)=>{
         try {
-            const {email,isblock}=req.body
+            const {useremail,isblock}=req.body
             if(typeof(isblock)!==Boolean){
                 return  res.status(400).json({msg:"new block status must be provided in boolean"})
             }
             const{role}=req
-            const DatafromUsers=await UsersModel.findOne(email)
+            const DatafromUsers=await UsersModel.findOne(useremail)
             if(role==="Admin" && DatafromUsers.role==="superadmin"){
                 return res.status(400).json({msg:"Admin cannot change the block status of superadmin"})
             }
