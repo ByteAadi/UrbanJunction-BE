@@ -136,6 +136,7 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
         return res.status(200).json({msg:`Role of ${DatafromUsers.name} changed to ${authority} from ${DatafromUsers.role}`});
     } catch (error) {
         res.status(500).json({ "msg": "Something went wrong, please try again later." });
+        console.error(error)
     }
 })
 Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),async (req, res) => {
