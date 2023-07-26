@@ -7,10 +7,12 @@ const UsersModel=require("../model/reg")
 
 Routes.post("/Products/add",authentication,Authorization(["seller","Admin","superadmin"]),  async (req, res) => {
     try {
-        const Data = req.body;
-        if (Data) {
-            replacedoolor(Data)
-            await ProductsModel.insertMany(Data);
+       const {email,category,Data}=req.body
+       const updatedData=AddCatAndEmail(email,Data,category)
+
+        if (updatedData) {
+            replacedoolor(updatedData)
+            await ProductsModel.insertMany(updatedData);
              return res.status(200).json({ "msg": `data added` });
         }else{
             return res.status(400).json({ "msg": "please provide the data" });
@@ -51,9 +53,6 @@ Routes.get("/products/show", async (req, res) => {
     }
 
 })
-
-
-
 Routes.get("/product/one/:id", async (req, res) => {
 
     try {
@@ -195,7 +194,13 @@ function replacedoolor(data) {
         });
     }
 }
-
+function AddCatAndEmail(email,data,category){
+    for(let i=0;i<data.length;i++){
+        data[i].email=email
+        data[i].category=category
+    }
+    return data;
+}
 
 
 module.exports = Routes
