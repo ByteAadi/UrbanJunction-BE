@@ -122,22 +122,25 @@ try {
 }
 })
 Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(req,res)=>{
-    try {
-        const {emailtochange,authority}=req.body
-        // if(!authority=="superadmin"||!authority=="Admin"){
-        //     res.status(400).json({ "msg": "Please provide valid neq authority" })
-        // }
-        const email={email:emailtochange}
-         const role={role:authority}
-        const DatafromUsers=await UsersModel.findOneAndUpdate(email,role)
-        // DatafromUsers.role=authority
-        // await DatafromUsers.save()
-       // const DatafromUsers=await UsersModel.updateOne(emaill,role)
-        return res.status(200).json({msg:`Role changed to ${authority}`});
-    } catch (error) {
-        res.status(500).json({ "msg": "Something went wrong, please try again later." });
-        console.error(error)
-    }
+   try {
+  const { emailtochange, authority } = req.body;
+
+  const query = { email: emailtochange };
+  const update = { role: authority };
+
+  // Use { new: true } to return the updated document
+  const updatedUser = await UsersModel.findOneAndUpdate(query, update, { new: true });
+
+  if (!updatedUser) {
+    return res.status(404).json({ msg: "User not found." });
+  }
+
+  return res.status(200).json({ msg: `Role changed to ${authority}` });
+} catch (error) {
+  res.status(500).json({ msg: "Something went wrong, please try again later." });
+  console.error(error);
+}
+
 })
 Routes.get("/users/get",authentication, Authorization(["Admin", "superadmin"]),async (req, res) => {
     try {
