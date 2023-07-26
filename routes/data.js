@@ -112,7 +112,7 @@ try {
     const {email}=req.body
   const DatafromDb=await ProductsModel.find({email})
   if(!DatafromDb.length){
-   return res.status(400).json({ msg: "You do not have any prduct with us"});
+   return res.status(200).json({ msg: "You do not have any prduct with us"});
   }
   return res.status(200).json(DatafromDb);
 }
