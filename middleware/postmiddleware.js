@@ -5,7 +5,7 @@ const Validate=(req,res,next)=>{
     try {
         const token=req.headers.token
         
-       
+       console.log(token)
         if(token){
             const decoded=jwt.verify(token,"masai")
          //  console.log(decoded);
