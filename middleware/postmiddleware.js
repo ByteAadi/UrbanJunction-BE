@@ -11,7 +11,7 @@ const Validate=(req,res,next)=>{
          //  console.log(decoded);
             req.body.email=decoded.email
             req.role=decoded.role
-           // console.log(req.role);
+            console.log(req.role);
             req.body.token=""
                 next()
             } else {
