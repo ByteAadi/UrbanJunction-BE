@@ -12,8 +12,9 @@ Routes.post("/Products/add",authentication,Authorization(["seller","Admin","supe
 
         if (updatedData) {
             replacedoolor(updatedData)
-            console.log(updatedData);
-            await ProductsModel.insertMany(updatedData);
+            req.body.Data=updatedData
+            console.log(req.body);
+            await ProductsModel.insertMany(req.body);
              return res.status(200).json({ "msg": `data added` });
         }else{
             return res.status(400).json({ "msg": "please provide the data" });
