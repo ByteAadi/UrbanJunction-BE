@@ -46,7 +46,7 @@ Authorization.post("/login", async (req, res) => {
          return res.status(400).json({ "msg": "Wrong Credentials" })
         
         }
-        return  res.status(200).json({ "msg": "Login successfull!", "token": jwt.sign({ email: user.email,role:user.role}, "masai"),name:user.name,email:user.email})
+        return  res.status(200).json({ "msg": "Login successfull!", "token": jwt.sign({ email: user.email,role:user.role}, "masai"),name:user.name,email:user.email,role:user.role})
       });
     
     
