@@ -35,7 +35,9 @@ Authorization.post("/login", async (req, res) => {
     if(!user){
       return res.status(200).json({"msg": "Please regeister first"} )
     }
-    
+    if(user.Blocked){
+      return res.status(400).json({msg:"Your account has been blocked and you are currently unable to access the system. This action has been taken due to a violation of our terms of service or community guidelines."})
+    }
       bcrypt.compare(password, user.password, (err, result) => {
         console.log(err);
         console.log(password);
