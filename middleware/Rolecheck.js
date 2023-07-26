@@ -4,7 +4,7 @@ function CheckRole(AuthorizeRoles){
     return (req,res,next)=>{
         try {
             const {role}=req
-           // console.log(role);
+            console.log(req);
             if(AuthorizeRoles.includes(role)){
                 return next()
             }else{
