@@ -127,15 +127,15 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
 
   const query = { email: emailtochange };
   const update = { role: authority };
+   const DatafromUsers=await UsersModel.findOne({email:emailtochange})
+       console.log(DatafromUsers)
+  DatafromUsers.role=authority
+     await  DatafromUsers.save()
+//   const updatedUser = await UsersModel.findOneAndUpdate(query, update, { new: true });
+// console.log(updatedUser)
 
-  
-  const updatedUser = await UsersModel.findOneAndUpdate(query, update, { new: true });
-console.log(updatedUser)
-  if (!updatedUser) {
-    return res.status(404).json({ msg: "User not found." });
-  }
 
-  return res.status(200).json({ msg: `Role changed to ${authority}` });
+  return res.status(200).json({ msg: `Role of ${DatafromUsers.name} is changed to ${authority}` });
 } catch (error) {
   res.status(500).json({ msg: "Something went wrong, please try again later." });
   console.error(error);
