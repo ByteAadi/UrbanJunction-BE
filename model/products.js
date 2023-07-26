@@ -6,8 +6,8 @@ const notesschema = mongoose.Schema({
     brand:String,
     price: String,
     colour:String,
-    category:{type:String,required:true},
-    email:{type:String,required:true}
+    category:{type:String},
+    email:{type:String}
 }, {
     versionKey: false
 })
