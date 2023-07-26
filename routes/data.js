@@ -196,6 +196,9 @@ function replacedoolor(data) {
 }
 function AddCatAndEmail(email,data,category){
     for(let i=0;i<data.length;i++){
+        if(!data[i].img){
+            return data
+        }
         data[i].email=email
         data[i].category=category
     }
