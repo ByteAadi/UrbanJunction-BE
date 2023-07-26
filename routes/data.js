@@ -128,9 +128,9 @@ Routes.put("/change/role",authentication,Authorization([ "superadmin" ]),async(r
   const query = { email: emailtochange };
   const update = { role: authority };
 
-  // Use { new: true } to return the updated document
+  
   const updatedUser = await UsersModel.findOneAndUpdate(query, update, { new: true });
-
+console.log(updatedUser)
   if (!updatedUser) {
     return res.status(404).json({ msg: "User not found." });
   }
