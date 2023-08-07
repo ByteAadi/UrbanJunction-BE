@@ -33,9 +33,9 @@ Routes.get("/products/show", async (req, res) => {
             query.brand = { $regex: req.query.brand, $options: "i" };
         }
         if (req.query.category) {
-            query.category = { $regex: req.query.category, $options: "i" };
+            query.category = req.query.category
         }
-console.log(query)
+
         const sort = {};
         if (req.query.sbp) {
             if (req.query.sbp === "asc") {
