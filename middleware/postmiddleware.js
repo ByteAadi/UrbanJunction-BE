@@ -4,7 +4,7 @@ const jwt=require("jsonwebtoken")
 const Validate=(req,res,next)=>{
     try {
         const token=req.headers.token
-        console.log(req.body.token)
+        console.log(req)
         console.log(req.headers)
        console.log(token)
         if(token){
