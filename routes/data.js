@@ -32,9 +32,10 @@ Routes.get("/products/show", async (req, res) => {
         if (req.query.brand) {
             query.brand = { $regex: req.query.brand, $options: "i" };
         }
-        if (req.query.category) {
-            query.category = req.query.category
-        }
+       if (req.query.category) {
+    query.category = new RegExp(`^${req.query.category}$`, 'i');
+}
+
 
         const sort = {};
         if (req.query.sbp) {
