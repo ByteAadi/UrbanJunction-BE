@@ -9,7 +9,7 @@ Router.post("/new",authorization,async(req,res)=>{
         if(!quantity||!totalprice||!products||!Arriving){
             return req.status(400).json({msg:"please provide all the order details"})
         }
-        const DatatoDb= new OrderModel({quantity,totalprice,products,Arriving,email,status})
+        const DatatoDb= new OrderModel({quantity,totalprice,products,Arriving,email,status:"completed"})
             await DatatoDb.save()
             return res.status(200).json({msg:"order completed"})
     } catch (error) {
